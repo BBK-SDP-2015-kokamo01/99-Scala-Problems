@@ -66,4 +66,14 @@ class ListPractise {
       else false
     }
   }
+
+  /**
+   * 07. Flatten a nested list structure.
+   */
+  def flattenList(list : List[Any]):List[Any] = list match {
+    case Nil => Nil
+    case (hd:List[_])::tl => flattenList(hd) ++ flattenList(tl)
+    case hd::tl => hd :: flattenList(tl)
+  }
+
 }
