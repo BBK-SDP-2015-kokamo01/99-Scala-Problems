@@ -76,4 +76,39 @@ class ListPractise {
     case hd::tl => hd :: flattenList(tl)
   }
 
+  /**
+   * 08. Eliminate consecutive duplicates of list elements.
+   */
+  def eliminateDuplicates(list : List[Any]):List[Any] = list match {
+    case Nil => throw new UnsupportedOperationException
+    case hd::Nil => List(hd)
+    case hd::tl => {
+      if (hd == tl.head) eliminateDuplicates(tl)
+      else hd::eliminateDuplicates(tl)
+    }
+  }
+
+
+  /**
+   * 09. Pack consecutive duplicates of list elements into sublists.
+   */
+//  def pack(list: List[Any]):List[Any] = list match {
+//    case Nil => Nil
+//    case (hd:List[_])::tl => {
+//      if (hd == tl.head) {
+//        List(hd:+tl.head)
+//      } else {
+//
+//      }
+//    }
+//    case hd::tl => {
+//      List(hd)::pack(tl)
+//    }
+//  }
+}
+
+object Runner extends App {
+  val a : ListPractise = new ListPractise
+  print(a.eliminateDuplicates(List('a','a','c','c','b')))
+
 }

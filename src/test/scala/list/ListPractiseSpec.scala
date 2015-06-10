@@ -63,4 +63,13 @@ class ListPractiseSpec extends FlatSpec with Matchers{
     listPractise.flattenList(List(List(1,2),List(3),List(4))) should be (list)
     listPractise.flattenList(List()) should be (List())
   }
+
+  "A list" should "eliminate duplicates" in {
+    listPractise.eliminateDuplicates(List('a','a','b','b','b','c','c')) should be (List('a','b','c'))
+  }
+  it should "throw UnsupportedOperationException when an empty list is operated on" in {
+    a [UnsupportedOperationException] should be thrownBy {
+      listPractise.eliminateDuplicates(List())
+    }
+  }
 }
