@@ -21,7 +21,6 @@ class ListPractise {
    */
   def getPenultimate(list : List[Int]):Option[Int] = list match {
     case hd::Nil => throw new NoSuchElementException
-    //case Nil => throw new NoSuchElementException
     case hd::_::Nil => Some(hd)
     case hd::tl => getPenultimate(tl)
   }
@@ -72,7 +71,7 @@ class ListPractise {
    */
   def flattenList(list : List[Any]):List[Any] = list match {
     case Nil => Nil
-    case (hd:List[_])::tl => flattenList(hd) ++ flattenList(tl)
+    case (hd:List[_]) :: tl => flattenList(hd) ++ flattenList(tl)
     case hd::tl => hd :: flattenList(tl)
   }
 
@@ -84,7 +83,7 @@ class ListPractise {
     case hd::Nil => List(hd)
     case hd::tl => {
       if (hd == tl.head) eliminateDuplicates(tl)
-      else hd::eliminateDuplicates(tl)
+      else hd :: eliminateDuplicates(tl)
     }
   }
 
@@ -92,23 +91,20 @@ class ListPractise {
   /**
    * 09. Pack consecutive duplicates of list elements into sublists.
    */
-//  def pack(list: List[Any]):List[Any] = list match {
-//    case Nil => Nil
-//    case (hd:List[_])::tl => {
-//      if (hd == tl.head) {
-//        List(hd:+tl.head)
-//      } else {
-//
-//      }
-//    }
-//    case hd::tl => {
-//      List(hd)::pack(tl)
-//    }
-//  }
+  def packConsecutiveDuplicates(list: List[Any]):List[Any] = list match {
+    case hd::Nil => List(hd)
+    case (hd:Any) :: tl => {
+      if (hd == tl.head) {
+        List(hd,tl.head) :: packConsecutiveDuplicates(tl.drop(1))
+      } else {
+        List(hd)::List(tl.head) :: packConsecutiveDuplicates(tl.drop(1))
+      }
+    }
+  }
 }
 
 object Runner extends App {
   val a : ListPractise = new ListPractise
-  print(a.eliminateDuplicates(List('a','a','c','c','b')))
+  print(a.packConsecutiveDuplicates(List('a','a','c','c','c','b','a')))
 
 }
